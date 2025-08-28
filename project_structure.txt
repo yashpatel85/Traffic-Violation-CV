@@ -1,0 +1,45 @@
+traffic-violation-cv/
+├── README.md
+├── requirements.txt
+├── .env.example
+├── .gitignore
+├── configs/
+│ ├── data.yaml # train/val paths for YOLO
+│ ├── roi_config.json # stop-line & ROIs per camera
+│ ├── tracker.yaml # YOLO tracker config (bytetrack)
+│ └── app.yaml # app-level settings
+├── data/
+│ ├── raw/ # original datasets & videos
+│ ├── interim/ # preprocessed, resized, split
+│ └── annotations/ # label files (YOLO format)
+├── notebooks/
+│ ├── 01_eda.ipynb
+│ └── 02_training_experiments.ipynb
+├── models/
+│ ├── yolo_best.pt
+│ └── yolo_best.onnx
+├── src/
+│ ├── __init__.py
+│ ├── detector.py # YOLO wrapper (train/infer/export)
+│ ├── tracker.py # thin wrapper around YOLO tracking
+│ ├── geometry.py # polygons, stop-line, counting
+│ ├── violation_rules.py # no-helmet, triple-riding, signal jump
+│ ├── draw.py # annotation utilities
+│ ├── pipeline.py # end-to-end video inference pipeline
+│ └── utils.py # logging, config, timers
+├── api/
+│ ├── app.py # FastAPI service
+│ └── schemas.py
+├── dashboard/
+│ ├── app.py # Flask minimal dashboard with video stream
+│ └── templates/
+│ └── index.html
+├── eval/
+│ ├── evaluate_detection.py # mAP on val set
+│ └── evaluate_violations.py # precision/recall of rules on labeled clips
+├── deployment/
+│ ├── Dockerfile
+│ └── run.sh
+└── tests/
+├── test_geometry.py
+└── test_violation_rules.py
